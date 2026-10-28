@@ -21,25 +21,41 @@ style: |
   table { font-size: 0.8em; }
   section.bigtable table { font-size: 1em; }
   .small, section small { font-size: 0.7em; color: #666; }
+  section.refs { font-size: 17px; }
+  section.refs ul { list-style: none; padding-left: 0; margin: 0; }
+  section.refs li { margin-bottom: 0.25em; }
 ---
 
 <!-- _class: lead -->
 <!-- _paginate: false -->
 
-![bg right:40% fit](assets/cover.png)
+![bg right:25% fit](assets/cover.png)
 
 # The Programmer's Brain
 
 What every programmer needs to know about cognition
 
-**Felienne Hermans** · Manning, 2021
+by **Felienne Hermans** · Manning, 2021
+
+Presentation: Christopher Schnelling
 
 <!--
-Welcome. Today: a book that is about programming, but not about any language, framework or architecture. It is about the thing we all use every day and almost never think about: our brain.
+Welcome.
 
-Felienne Hermans was an associate professor at Leiden University when she wrote the book. She researches how people learn and teach programming. The book translates cognitive science into practical techniques for programmers.
+Today: a book that is about programming,
+but not about any language, framework or architecture.
 
-Plan: quick warm-up exercise, where the book sits, the core model, then a tour through the four parts, with an "AI lens" along the way. About 25 minutes, questions at the end.
+It is about the thing we all use every day and almost never think about: our brain.
+
+The author Felienne Hermans was an associate professor at Leiden University when she wrote the book.
+She researches how people learn and teach programming.
+The book translates cognitive science into practical techniques for programmers.
+
+Plan: quick warm-up exercise,
+where the book sits, the core model,
+then a tour through the four parts, with an "AI lens" along the way.
+
+About 25 minutes, questions at the end.
 -->
 
 ---
@@ -55,7 +71,7 @@ All three convert a number `n` to binary.
 ```
 
 ```java
-public class BinaryCalculator {j
+public class BinaryCalculator {
     public static void main(Integer n) {
         System.out.println(Integer.toBinaryString(n));
     }
@@ -118,23 +134,25 @@ This is the backbone of the whole book, and of this talk. The little diagram in 
 
 ## Where does this book sit?
 
-**Language & craft** — *how* to write code in X
+**Language & craft** — *how* to write idiomatic code in some language
 ![h:115](assets/covers/c-programming-language.jpg) ![h:115](assets/covers/cpp-programming-language.jpg) ![h:115](assets/covers/fluent-python.jpg) ![h:115](assets/covers/learning-go.jpg)
 
 **Architecture & design** — *how* to structure systems
-![h:115](assets/covers/design-patterns.jpg) ![h:115](assets/covers/building-microservices.jpg) ![h:115](assets/covers/fundamentals-sw-engineering.jpg)
+![h:115](assets/covers/design-patterns.jpg) ![h:115](assets/covers/domain-driven-design.jpg) ![h:115](assets/covers/building-microservices.jpg) ![h:115](assets/covers/fundamentals-sw-architecture.jpg)
 
 **The "philosophical" shelf** — *why* software is hard for humans
-![h:115](assets/covers/mythical-man-month.jpg) ![h:115](assets/covers/philosophy-sw-design.jpg) ![h:115](assets/covers/swe-at-google.jpg) ![h:115](assets/covers/clean-code.jpg)
+![h:115](assets/covers/clean-code.jpg) ![h:115](assets/covers/mythical-man-month.jpg) ![h:115](assets/covers/philosophy-sw-design.jpg) ![h:115](assets/covers/swe-at-google.jpg)
+
+<small>Books: [1]–[12]</small>
 
 <!--
 Most of our bookshelves look like this.
 
 Top pile: language books. Narrow and deep. Great for learning a tool, they age with the tool.
 
-Middle pile: architecture and design. How to structure systems. Patterns, services, engineering practice.
+Middle pile: architecture and design. How to structure systems. Patterns, domain modelling (Evans' DDD), services, architecture trade-offs.
 
-Bottom pile: the "philosophical" shelf. Books about why software is hard for people, not for machines. Brooks: adding people to a late project makes it later. Ousterhout: complexity is anything that makes a system hard to understand and modify. SWE at Google: software engineering is programming integrated over time. And Clean Code... which tells you very confidently WHAT to do. (Light jab: some of it has aged; the evidence behind it is thin.)
+Bottom pile: the "philosophical" shelf. Books about why software is hard for people, not for machines. Brooks: adding people to a late project makes it later. Ousterhout: complexity is anything that makes a system hard to understand and modify. SWE at Google: software engineering is programming integrated over time. And Clean Code, at the bottom of the pile, which tells you very confidently WHAT to do. (Light jab: some of it has aged; the evidence behind it is thin.)
 
 The Programmer's Brain belongs on this third shelf, but it brings something none of the others have: evidence from cognitive science. It explains WHY some of the advice on that shelf works. For example, Ousterhout's "complexity" is essentially what this book calls cognitive load.
 -->
@@ -143,16 +161,16 @@ The Programmer's Brain belongs on this third shelf, but it brings something none
 
 ## Why this book, why now?
 
-- Developers spend **~58–60 %** of their time **understanding** code, not writing it
+- Developers spend **~58–60 %** of their time **understanding** code, not writing it [13]
 - Yet we *train* writing (katas, LeetCode, courses) and almost never *train* reading
 - The book is about the human side: memory, load, names, interruptions, onboarding
 
 > **AI lens:** AI assistants write more and more code. Our job shifts from *writing* to **reading, reviewing and judging** code we did not write. The bottleneck is no longer typing. It is understanding.
 
 <!--
-The 58-60% number is quoted twice in the book (chapters 2 and 5), from field studies of professional developers.
+The 58-60% number is quoted twice in the book (chapters 2 and 5), from a field study of professional developers by Xia et al. [13].
 
-Point out the asymmetry: we practice writing, we rarely practice reading. Donald Knuth is the notable exception in Seibel's "Coders at Work" interviews: most interviewees said reading code is important, but few could name code they had recently read.
+Point out the asymmetry: we practice writing, we rarely practice reading. Donald Knuth is the notable exception in Seibel's "Coders at Work" interviews [14]: most interviewees said reading code is important, but few could name code they had recently read.
 
 AI LENS (this is MY interpretation, the book is from 2021 and does not discuss LLMs): with AI-assisted development, the ratio shifts even further toward reading. Every AI suggestion, every agent-generated PR is code you didn't write, from an "author" whose intent you can't ask about. So getting better at reading code is now more valuable than ever.
 
@@ -165,7 +183,7 @@ I'll come back to this with a short "AI lens" box on several slides.
 
 ![bg right:48% fit](assets/figures/fig-1-2-memory-model.png)
 
-- **Short-term memory (STM):** holds what you just read. Only **~2–6 items**, for seconds
+- **Short-term memory (STM):** holds what you just read. Only **~2–6 items**, for seconds [15, 16]
 - **Long-term memory (LTM):** keywords, idioms, patterns, domain knowledge. Huge, but slow to fill
 - **Working memory (WM):** where thinking happens. Tracing, deciding, combining
 - All three work **together** on every line
@@ -175,7 +193,7 @@ I'll come back to this with a short "AI lens" box on several slides.
 <!--
 Figure 1.2 from the book. Information comes in through a filter, lands in short-term memory, and working memory combines it with what long-term memory retrieves.
 
-Key number: STM holds about 2-6 items. That's tiny. Compare to the number of variables, calls and types in a typical method.
+Key number: STM holds about 2-6 items. That's tiny. Miller's famous "seven plus or minus two" [15] has been revised downward by later research [16]. Compare to the number of variables, calls and types in a typical method.
 
 Everything else in the book follows from these limitations:
 - STM is small -> chunking, focus
@@ -221,8 +239,8 @@ I'll go through it in that order, but I'll skip or merge some chapters.
 
 ![bg right:45% fit](assets/figures/fig-2-3-chess.png)
 
-- **De Groot (chess):** masters recall real positions far better than average players, but **not random** ones
-- **McKeithen (ALGOL):** same for programmers: experts win on real code, **not on scrambled code**
+- **De Groot (chess)** [17]: masters recall real positions far better than average players, but **not random** ones
+- **McKeithen (ALGOL)** [18]: same for programmers: experts win on real code, **not on scrambled code**
 - Experts don't have a bigger STM. They store **chunks** ("a for-loop", "a VWAP calculation") instead of characters
 
 ![map](assets/map/stm-ltm.svg)
@@ -289,9 +307,9 @@ The float remark is a hook for the misconceptions slide later.
 
 ![bg right:40% fit](assets/figures/fig-2-7-design-patterns.png)
 
-- **Design patterns** (Tichy): faster maintenance *with* patterns, once people knew them
+- **Design patterns** [19]: faster maintenance *with* patterns, once people knew them
 - **Comments**, especially high-level ones
-- **Beacons:** recognizable markers (`swap`, `tmp`) that confirm a hypothesis
+- **Beacons** [20]: recognizable markers (`swap`, `tmp`) that confirm a hypothesis
 
 > **AI lens:** chunks come from working with lots of code. If AI writes most of it, where do the next generation's chunks come from?
 
@@ -314,8 +332,8 @@ AI LENS (my extrapolation, not from the book): chunking depends on a well-stocke
 ![bg right:38% fit](assets/figures/fig-3-2-forgetting-curve.png)
 
 - "Just look it up" has a cost: every lookup is an **interruption**, and missing syntax blocks chunking
-- **Forgetting curve:** half gone after ~1 hour, ~25 % left after 2 days
-- **Spaced repetition** and **retrieval practice** (try to recall *before* looking up)
+- **Forgetting curve** [21, 22]: half gone after ~1 hour, ~25 % left after 2 days
+- **Spaced repetition** [23] and **retrieval practice** (try to recall *before* looking up)
 - **Elaboration:** connect new facts to what you already know
 
 ![map](assets/map/ltm.svg)
@@ -336,7 +354,7 @@ OPTIONAL SLIDE: skip if short on time.
 
 ## Complex code: cognitive load
 
-- Working memory has a limit. **Cognitive load** = how much of it a task uses
+- Working memory has a limit. **Cognitive load** = how much of it a task uses [24]
 - **Intrinsic load:** the problem itself is hard (a matching engine *is* complex)
 - **Extraneous load:** how it is presented, or what the reader doesn't know yet
 - Only extraneous load can be reduced
@@ -397,10 +415,10 @@ AI LENS: these are also good things to ask an assistant for. "Draw the call grap
 
 ## Deeper understanding: roles and plans
 
-- **Roles of variables** (Sajaniemi): 11 roles cover almost all variables
+- **Roles of variables** [25]: 11 roles cover almost all variables
   - *fixed value, stepper, flag, walker, most-recent holder, most-wanted holder, gatherer, container, follower, organizer, temporary*
   - The `vwap` example: two **gatherers**, a **stepper** over trades
-- **Text knowledge vs. plan knowledge** (Pennington)
+- **Text knowledge vs. plan knowledge** [26]
   - *Text:* what each line does (syntax)
   - *Plan:* **why** it's there, what the author intended
 
@@ -422,7 +440,7 @@ AI LENS: this is the crux of AI code review. A human author has a plan you can a
 
 ![bg right:40% fit](assets/figures/fig-5-4-prat-predictors.png)
 
-- **Prat et al.:** what predicts how fast people learn to program?
+- **Prat et al.** [27]: what predicts how fast people learn to program?
   - Numeracy: **2 %** · Language aptitude: **17 %** · Working memory & reasoning: **34 %**
 - So use **reading strategies** on code:
   - activate prior knowledge · monitor · find key lines
@@ -449,8 +467,8 @@ AI LENS: an AI summary can be useful, but the learning effect comes from produci
 ![bg right:42% fit](assets/figures/fig-6-4-notional-machines.png)
 
 - How you **represent** a problem shapes how you solve it
-- **Mental models:** simplified internal models. We often hold several, and they compete
-- **Notional machines:** deliberate abstractions of the computer ("a variable is a box")
+- **Mental models** [28]: simplified internal models. We often hold several, and they compete
+- **Notional machines** [29]: deliberate abstractions of the computer ("a variable is a box")
   - useful, but every one is wrong somewhere: a box holds *one* thing; a variable can alias
 
 ![map](assets/map/ltm-wm.svg)
@@ -508,11 +526,11 @@ AI LENS: LLMs produce plausible, confident, consistent wrong answers, which fits
 
 ## Naming things
 
-- Identifiers make up **~33 % of tokens** and **~72 % of characters** in code
-- Ask two developers to name the same thing → same name only **~7 %** of the time
-- Bad names correlate with **more bugs** (correlation, not proven causation)
+- Identifiers make up **~33 % of tokens** and **~72 % of characters** in code [30]
+- Ask two developers to name the same thing → same name only **~7 %** of the time [31]
+- Bad names correlate with **more bugs** (correlation, not proven causation) [32]
 - Pick a few **name molds** (`max_rate` vs `rate_max`) and stick to them
-- **Feitelson's 3 steps:**
+- **Feitelson's 3 steps** [31]:
   1. choose the **concepts** to include
   2. choose the **words** for each concept
   3. **combine** them using the team's molds
@@ -524,7 +542,7 @@ Chapter 8. Names are the main way code communicates intent. Most of the characte
 
 Dror Feitelson's study: when two people independently name the same thing, the median probability that they pick the same name is only 7%. So naming is hard and highly variable.
 
-Snake vs camel case: there are studies on that too (camel case is easier to remember, snake case is faster to recognize). But consistency matters more than the choice.
+Snake vs camel case: there are studies on that too [33] (camel case is easier to remember, snake case is faster to recognize). But consistency matters more than the choice.
 
 Name molds: the patterns in which words are combined. Limit your codebase to a few.
 
@@ -543,9 +561,9 @@ Price   getPrice(String isin);       // does a blocking remote call
 void    setNotional(BigDecimal n);   // also recalculates margin...
 ```
 
-- **Arnaoudova:** in open-source code, **64 %** of identifiers starting with `is` were **not booleans**; **11 %** of setters also return a value
+- **Arnaoudova** [34]: in open-source code, **64 %** of identifiers starting with `is` were **not booleans**; **11 %** of setters also return a value
 - Lying names put **wrong facts** into your LTM and lead to **wrong chunks**
-- **Code smells** (long methods, long parameter lists, duplicated code) map to the same memory limits
+- **Code smells** [35] (long methods, long parameter lists, duplicated code) map to the same memory limits
 
 > **AI lens:** LLMs are very good at *plausible* names. Plausible is not the same as true. Check that the name matches the behaviour.
 
@@ -571,7 +589,7 @@ AI LENS: generated code tends to have very conventional names, which is good for
 
 - **Domain knowledge**, not a "general problem-solving skill", makes people fast
 - **Automatized skills** (typing, shortcuts, idioms) free working memory
-- **Worked examples:** study good code *with an explanation*
+- **Worked examples** [36]: study good code *with an explanation*
 - **Germane load:** the effort of storing new knowledge
 
 > **AI lens:** an AI explanation can be a worked example, if you actively process it.
@@ -605,7 +623,7 @@ OPTIONAL SLIDE.
 
 ![w:900](assets/figures/fig-11-1-activities.png)
 
-Different activities load **different** memory systems, so they need **different support**.
+Different activities load **different** memory systems, so they need **different support** [37].
 
 ![map](assets/map/all.svg)
 
@@ -629,8 +647,8 @@ Practical: when you plan your day, or a ticket, it helps to know which activity 
 
 ![bg right:35% fit](assets/figures/fig-11-2-interruptions.png)
 
-- **~15 min** to resume editing after an interruption (Parnin)
-- Typically **one uninterrupted 2-hour session per day**
+- **~15 min** to resume editing after an interruption [38]
+- Typically **one uninterrupted 2-hour session per day** [38]
 - Defenses:
   - **Brain-dump** your mental model
   - **Prospective memory:** `TODO`s, failing tests
@@ -641,7 +659,7 @@ Practical: when you plan your day, or a ticket, it helps to know which activity 
 ![map](assets/map/wm.svg)
 
 <!--
-Chris Parnin recorded 10,000 programming sessions from 86 programmers. After an interruption, it takes about a quarter of an hour to get back to editing code. When interrupted during an edit, people resumed in under a minute only 10% of the time. The average programmer gets just one uninterrupted two-hour session a day. A Microsoft study: 62% of developers consider recovering from interruptions a serious problem.
+Chris Parnin recorded 10,000 programming sessions from 86 programmers. After an interruption, it takes about a quarter of an hour to get back to editing code. When interrupted during an edit, people resumed in under a minute only 10% of the time. The average programmer gets just one uninterrupted two-hour session a day. Earlier, van Solingen found interruptions take 15-20 minutes each and eat about 20% of a developer's time [39]. A Microsoft study: 62% of developers consider recovering from interruptions a serious problem [40].
 
 Why: working memory loses the mental model of the code, and it has to be rebuilt.
 
@@ -650,7 +668,7 @@ Three defenses (figure 11.2):
 2. Prospective memory: "remembering to remember". TODO comments, deliberately failing tests.
 3. Subgoal labeling: break the task into labeled steps so you can find your place again.
 
-FlowLight (a traffic light on the desk showing whether you're interruptible) reduced interruptions by 46%. Slack status can do the same.
+FlowLight (a traffic light on the desk showing whether you're interruptible) reduced interruptions by 46% [41]. Slack status can do the same.
 
 DEVOPS / ON-CALL: incident response is pure interruption. Runbooks are external memory for exactly this situation.
 
@@ -661,7 +679,7 @@ AI LENS: agentic workflows can fragment attention: start the agent, switch away,
 
 ## Cognitive dimensions of codebases (CDCB)
 
-A shared vocabulary for design trade-offs. A selection:
+A shared vocabulary for design trade-offs [37]. A selection:
 
 | Dimension | Question | Our world |
 |---|---|---|
@@ -697,7 +715,7 @@ The book also has a table (12.1) mapping which dimensions help or hurt which of 
 
 - Experts think **abstractly**; novices cling to **concrete** details
 - Even seniors fall back to novice mode in unfamiliar code
-- Explain along a **semantic wave**: abstract → concrete → back to abstract
+- Explain along a **semantic wave** [42]: abstract → concrete → back to abstract
 
 ![map](assets/map/all.svg)
 
@@ -794,7 +812,7 @@ Short, practical, evidence-based, with **exercises on your own code**
 
 Questions?
 
-<small>Figures: F. Hermans, *The Programmer's Brain*, Manning 2021. Book covers via Open Library and O'Reilly.</small>
+<small>Figures taken from the book. References and sources: see backup.</small>
 
 <!--
 Why read it: it's short (~220 pages), each chapter is self-contained, and you can apply the exercises directly to your codebase. It gives you vocabulary (cognitive load, chunks, linguistic antipatterns, viscosity) that makes team discussions more precise.
@@ -803,3 +821,76 @@ Closing thought from the book: confusion is normal and is part of programming. T
 
 Thank you. Questions?
 -->
+
+---
+
+<!-- _class: lead -->
+<!-- _paginate: false -->
+
+# Backup
+## References
+
+---
+
+<!-- _class: refs -->
+
+## References (1/3): the bookshelf
+
+- [1] B. W. Kernighan, D. M. Ritchie. *The C Programming Language*. Prentice Hall, 1978.
+- [2] B. Stroustrup. *The C++ Programming Language*. Addison-Wesley, 1986.
+- [3] L. Ramalho. *Fluent Python*. O'Reilly, 2015.
+- [4] J. Bodner. *Learning Go*. O'Reilly, 2021.
+- [5] E. Gamma, R. Helm, R. Johnson, J. Vlissides. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994.
+- [6] E. Evans. *Domain-Driven Design: Tackling Complexity in the Heart of Software*. Addison-Wesley, 2003.
+- [7] S. Newman. *Building Microservices*. O'Reilly, 2015.
+- [8] M. Richards, N. Ford. *Fundamentals of Software Architecture*. O'Reilly, 2020.
+- [9] R. C. Martin. *Clean Code: A Handbook of Agile Software Craftsmanship*. Prentice Hall, 2008.
+- [10] F. P. Brooks Jr. *The Mythical Man-Month*. Addison-Wesley, 1975.
+- [11] J. Ousterhout. *A Philosophy of Software Design*. Yaknyam Press, 2018.
+- [12] T. Winters, T. Manshreck, H. Wright. *Software Engineering at Google*. O'Reilly, 2020.
+- [13] X. Xia et al. "Measuring Program Comprehension: A Large-Scale Field Study with Professionals." *IEEE TSE* 44(10), 2018.
+- [14] P. Seibel. *Coders at Work*. Apress, 2009.
+
+<small>Cover images: Open Library (openlibrary.org).</small>
+
+---
+
+<!-- _class: refs -->
+
+## References (2/3): reading and thinking about code
+
+- [15] G. A. Miller. "The Magical Number Seven, Plus or Minus Two." *Psychological Review* 63(2), 1956.
+- [16] N. Cowan. "The Magical Number 4 in Short-Term Memory." *Behavioral and Brain Sciences* 24(1), 2001.
+- [17] A. D. de Groot. *Thought and Choice in Chess*. Mouton, 1965 (Dutch original 1946).
+- [18] K. B. McKeithen, J. S. Reitman, H. H. Rueter, S. C. Hirtle. "Knowledge Organization and Skill Differences in Computer Programmers." *Cognitive Psychology* 13(3), 1981.
+- [19] L. Prechelt, B. Unger, W. F. Tichy. "Two Controlled Experiments Assessing the Usefulness of Design Pattern Information During Program Maintenance." *Empirical Software Engineering*, 1998.
+- [20] M. E. Crosby, J. Scholtz, S. Wiedenbeck. "The Roles Beacons Play in Comprehension for Novice and Expert Programmers." *PPIG*, 2002.
+- [21] H. Ebbinghaus. *Über das Gedächtnis*. 1885.
+- [22] J. M. J. Murre, J. Dros. "Replication and Analysis of Ebbinghaus' Forgetting Curve." *PLOS ONE* 10(7), 2015.
+- [23] H. P. Bahrick et al. "Maintenance of Foreign Language Vocabulary and the Spacing Effect." *Psychological Science* 4(5), 1993.
+- [24] J. Sweller. "Cognitive Load During Problem Solving: Effects on Learning." *Cognitive Science* 12(2), 1988.
+- [25] J. Sajaniemi, M. Kuittinen. "An Experiment on Using Roles of Variables in Teaching Introductory Programming." *Computer Science Education* 15(1), 2005.
+- [26] N. Pennington. "Stimulus Structures and Mental Representations in Expert Comprehension of Computer Programs." *Cognitive Psychology* 19(3), 1987.
+- [27] C. S. Prat et al. "Relating Natural Language Aptitude to Individual Differences in Learning Programming Languages." *Scientific Reports* 10, 2020.
+- [28] K. Craik. *The Nature of Explanation*. Cambridge University Press, 1943.
+- [29] B. du Boulay. "Some Difficulties of Learning to Program." *Journal of Educational Computing Research* 2(1), 1986.
+
+---
+
+<!-- _class: refs -->
+
+## References (3/3): writing and collaborating
+
+- [30] F. Deißenböck, M. Pizka. "Concise and Consistent Naming." *IWPC*, 2005.
+- [31] D. G. Feitelson et al. "How Developers Choose Names." *IEEE TSE* 48(1), 2022.
+- [32] S. Butler, M. Wermelinger, Y. Yu, H. Sharp. "Relating Identifier Naming Flaws and Code Quality: An Empirical Study." *WCRE*, 2009.
+- [33] D. Binkley, M. Davis, D. Lawrie, C. Morrell. "To CamelCase or Under_score." *ICPC*, 2009.
+- [34] V. Arnaoudova, M. Di Penta, G. Antoniol. "Linguistic Antipatterns: What They Are and How Developers Perceive Them." *Empirical Software Engineering* 21(1), 2016.
+- [35] M. Fowler. *Refactoring: Improving the Design of Existing Code*. Addison-Wesley, 1999.
+- [36] J. Sweller, G. A. Cooper. "The Use of Worked Examples as a Substitute for Problem Solving in Learning Algebra." *Cognition and Instruction* 2(1), 1985.
+- [37] T. R. G. Green, M. Petre. "Usability Analysis of Visual Programming Environments: A 'Cognitive Dimensions' Framework." *Journal of Visual Languages & Computing* 7(2), 1996.
+- [38] C. Parnin, S. Rugaber. "Resumption Strategies for Interrupted Programming Tasks." *Software Quality Journal* 19(1), 2011.
+- [39] R. van Solingen, E. Berghout, F. van Latum. "Interrupts: Just a Minute Never Is." *IEEE Software* 15(5), 1998.
+- [40] T. D. LaToza, G. Venolia, R. DeLine. "Maintaining Mental Models: A Study of Developer Work Habits." *ICSE*, 2006.
+- [41] M. Züger et al. "Reducing Interruptions at Work: A Large-Scale Field Study of FlowLight." *CHI*, 2017.
+- [42] K. Maton. "Making Semantic Waves: A Key to Cumulative Knowledge-Building." *Linguistics and Education* 24(1), 2013.
